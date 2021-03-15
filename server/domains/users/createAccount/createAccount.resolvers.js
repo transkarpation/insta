@@ -1,5 +1,6 @@
 import client from "../../../client";
 import bcrypt from "bcrypt";
+import sign from '../../../utils/jwt';
 
 export default {
     Mutation: {
@@ -22,12 +23,12 @@ export default {
                 });
 
                 if (existingUser) {
-                    throw new Error("This username/password is already taken.");
+                    throw new Error("This username/email is already taken.");
                 }
 
                 const uglyPass = await bcrypt.hash(password, 10);
 
-                return client.user.create({
+                const newUser = await client.user.create({
                     data: {
                         firstName,
                         lastName,
@@ -36,6 +37,14 @@ export default {
                         password: uglyPass,
                     },
                 });
+
+                const token = sign(newUser.id)
+
+                return {
+                    ok: true,
+                    user: newUser,
+                    token: token
+                }
             } catch (e) {
                 return e;
             }
