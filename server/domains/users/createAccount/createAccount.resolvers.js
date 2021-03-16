@@ -1,6 +1,6 @@
 import client from "../../../client";
 import bcrypt from "bcrypt";
-import sign from '../../../utils/jwt';
+import {sign} from '../../../utils/jwt';
 
 export default {
     Mutation: {

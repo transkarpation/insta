@@ -6,11 +6,12 @@ export default {
   Mutation: {
     editProfile: async (
       _,
-      { firstName, lastName, username, email, password: newPassword, token }
+      { firstName, lastName, username, email, password: newPassword },
+      { user }
     ) => {
-      const userId = decode(token);
 
-      if (userId) {
+      if (user) {
+        console.log('edit profile user = ', user)
         let uglyPass = null;
         if (newPassword) {
           uglyPass = await bcrypt.hash(newPassword, 10);
@@ -18,7 +19,7 @@ export default {
 
         const updatedUser = await client.user.update({
           where: {
-            id: +userId,
+            id: user.id,
           },
           data: {
             firstName,
