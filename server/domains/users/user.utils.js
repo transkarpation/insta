@@ -15,3 +15,11 @@ export const getUser = async (token) => {
         return null
     }
 }
+
+export const protectedResolver = (ourResolver) => (root, args, context, info) => {
+    if(!context.user) {
+        return {
+            ok: false,
+        }
+    }
+}

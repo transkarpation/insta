@@ -14,6 +14,16 @@ const server = new ApolloServer({
     }
 })
 
+const x = (resolver) => (root, args, context, info) => {
+    if(!context.user) {
+        return {
+            ok: false,
+            error: "log in pls"
+        }
+    }
+    return resolver(root, args, context, info)
+}
+
 const PORT = process.env.PORT
 
 server.listen(PORT).then(() => {console.log(`listening on :${PORT}`)})
