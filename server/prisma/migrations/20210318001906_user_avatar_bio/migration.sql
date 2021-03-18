@@ -1,0 +1,20 @@
+-- AlterTable
+ALTER TABLE "Albom" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "bio" TEXT,
+ADD COLUMN     "avatar" TEXT;
+
+-- CreateTable
+CREATE TABLE "Photo" (
+    "id" SERIAL NOT NULL,
+    "userId" INTEGER NOT NULL,
+    "path" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "Photo" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

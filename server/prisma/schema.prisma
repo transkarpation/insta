@@ -38,6 +38,8 @@ model User {
   updatedAt DateTime @updatedAt
   alboms Albom[]
   photos Photo[]
+  bio String?
+  avatar String?
 }
 
 

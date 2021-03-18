@@ -20,6 +20,9 @@ export const protectedResolver = (ourResolver) => (root, args, context, info) =>
     if(!context.user) {
         return {
             ok: false,
+            error: "Pleas log in to perform this action"
         }
     }
+
+    return ourResolver(root, args, context, info)
 }
